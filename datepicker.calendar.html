@@ -1,0 +1,25 @@
+<div class="c-calendar">
+    <div class="c-calendar-month">
+        <button type="button" class="c-calendar-month-navButton c-calendar-month-navButton--previous" ng-click="$ctrl.changeMonthBy(-1)">&laquo;</button>
+        <span title="{{ $ctrl.months[displayMonth - 1].fullName }}">{{ $ctrl.months[$ctrl.displayMonth - 1].shortName }}</span> {{ $ctrl.displayYear }}
+        <button type="button" class="c-calendar-month-navButton c-calendar-month-navButton--next" ng-click="$ctrl.changeMonthBy(1)">&raquo;</button>
+    </div>
+    <div class="c-calendar-days">
+        <div class="c-calendar-dayOfWeek" ng-repeat="dayOfWeek in $ctrl.daysOfWeek" title="{{ dayOfWeek.fullName }}">{{
+            dayOfWeek.firstLetter }}
+        </div>
+        <div class="c-calendar-day" ng-repeat="day in $ctrl.days" ng-click="$ctrl.pickDay($event)"
+             ng-class="{
+                'c-calendar-day--selected': day.isSelected,
+                'c-calendar-day--today': day.isToday,
+                'c-calendar-day--inSpan': day.isInSpan,
+                'c-calendar-day--spanStart': day.isSpanStart,
+                'c-calendar-day--spanEnd': day.isSpanEnd,
+                'c-calendar-day--disabled' : !day.isSelectable,
+                'c-calendar-day--padding': !day.isCurrentMonth
+             }"
+             isSelectable="{{day.isSelectable}}"
+             isPadding="{{!day.isCurrentMonth}}"
+             dateNum="{{day.dateNum}}">{{ day.day }}</div>
+    </div>
+</div>

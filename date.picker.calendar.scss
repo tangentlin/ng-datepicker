@@ -1,0 +1,122 @@
+$dp-calendar-border: #ddd;
+$dp-calendar-header-background: #fcfcfc;
+$dp-calendar-background: palette(invision, white);
+
+$dp-calendar-day-width: 30px;
+$dp-calendar-day-height: 28px;
+
+
+//TODO: Write Sass to use swatches (once Hi-Fi design is there)
+@mixin dp-calendar() {
+    border: 1px solid;
+    border-color: $dp-calendar-border;
+    display: inline-block;
+    background: $dp-calendar-background;
+}
+
+@mixin dp-calendar-header() {
+    text-align: center;
+    line-height: 22px;
+    padding: 10px;
+    background: #fcfcfc;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+
+}
+
+@mixin dp-calendar-navButton() {
+    color: #555;
+    outline: none;
+    position: absolute;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        color: #333;
+    }
+}
+
+.c-calendar {
+    @include dp-calendar();
+
+    .c-calendar-month {
+        @include dp-calendar-header();
+
+        .c-calendar-month-navButton {
+            @include dp-calendar-navButton();
+
+            &.c-calendar-month-navButton--previous {
+                left: $dp-base-spacing * 3;
+            }
+
+            &.c-calendar-month-navButton--next {
+                right: $dp-base-spacing * 3;
+            }
+        }
+    }
+
+    .c-calendar-days {
+        width: $dp-calendar-day-width * 7;
+        margin: $dp-base-spacing * 3;
+        text-align: center;
+
+        &:after {
+            content: '';
+            display: block;
+            clear: left;
+            height: 0;
+        }
+
+        .c-calendar-dayOfWeek,
+        .c-calendar-day {
+            box-sizing: border-box;
+            border: 1px solid transparent;
+            width: $dp-calendar-day-width;
+            line-height: $dp-calendar-day-height;
+            float: left;
+            margin-bottom: 1px;
+        }
+
+        .c-calendar-dayOfWeek {
+            font-weight: bold; //TODO: Use variable
+        }
+
+        .c-calendar-day {
+            cursor: pointer;
+
+            &:hover {
+                background-color: #eeeeee;
+            }
+
+            &.c-calendar-day--padding,
+            &.c-calendar-day--disabled {
+                opacity: .5;
+            }
+
+            &.c-calendar-day--today {
+                border-color: #aaa;
+            }
+
+            &.c-calendar-day--selected,
+            &.c-calendar-day--inSpan {
+                background-color: #e0e0e0;
+            }
+
+            &.c-calendar-day--spanStart {
+                border-radius: $dp-base-spacing 0 0 $dp-base-spacing;
+            }
+
+            &.c-calendar-day--spanEnd {
+                border-radius: 0 $dp-base-spacing $dp-base-spacing 0;
+            }
+
+            &.c-calendar-day--disabled {
+                font-style: italic;
+            }
+        }
+    }
+}
+
